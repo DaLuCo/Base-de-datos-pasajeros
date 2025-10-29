@@ -4,10 +4,7 @@ conexion= None
 try:
     conexion= sqlite3.connect("Base de datos pax.sql")
     cursor= conexion.cursor()
-    cursor.execute("Select SQLITE_VERSION()")
-    datos= cursor.fetchone()
-    print("SQLite esta en version: %s" % datos)
-
+    
 except sqlite3.Error as e:
     print("Error %s:" %e.args [0])
 
@@ -31,9 +28,10 @@ with conexion:
     cursor= conexion.cursor()
 
 #Ejecución del script SQL:
+Lista_pax= 0
 id_pasajeros= 0
-for pasajeros in Pasajeros:
-    cursor.execute("INSERT INTO Pasajeros VALUES()", (id_pasajeros, pasajeros.nombre, pasajeros.DNI, pasajeros. fecha_nac, pasajeros.telefono,
+for pasajeros in Lista_pax:
+    cursor.execute("INSERT INTO Base de datos pax VALUES()", (id_pasajeros, pasajeros.nombre, pasajeros.DNI, pasajeros. fecha_nac, pasajeros.telefono,
     pasajeros.mail, pasajeros.paquete))
 id_pasajeros+= 1
 
@@ -44,9 +42,9 @@ for linea in lineas:
     print (linea)
 
 #Modificar un campo:
-cursor.execute("UPDATE Pasajeros SET mail WHERE nombre")
+cursor.execute("UPDATE Base de datos pax SET mail WHERE nombre")
 conexion. commit()
 print("Numero de lineas actualizadas: %d" % cursor.rowcount)
 
 #Eliminar un registro:
-cursor.execute("DELETE FROM Pasajeros WHERE ID= 2")
+cursor.execute("DELETE FROM Base de datos pax WHERE ID= 2")
