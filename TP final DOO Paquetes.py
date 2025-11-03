@@ -1,40 +1,42 @@
 import sqlite3
-conexion= None
-
+#1. Conexión a la base de datos
 try:
-    conexion= sqlite3.connect("Base de datos pax.sql")
-    cursor= conexion.cursor()
-    
-except sqlite3.Error as e:
-    print("Error %s:" %e.args [0])
+    conexion= sqlite3.connect('pasajeros.sql')
+    cursor = conexion.cursor()
+    print("Conexión a la base de datos establecida.")
+        
+#2. Creamos una tabla
+    cursor.execute('''CREATE TABLE IF NOT EXISTS paquetes
+                  (ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                   Nombre_paq TEXT NOT NULL,
+                   Descripcion TEXT NOT NULL,
+                   Precio INTEGER)''')
+    print("Tabla 'paquetes' verificada/creada.")
 
+#3. Insertar datos
+    Lista_paquetes= [
+    ('Ushuaia + Calafate', 'Incluye aéreos, alojamiento, traslados y excursiones', "$ {:,}".format(1000000)),
+    ('Salta', 'Incluye aéreos, alojamiento, traslados y excursiones', "$ {:,}".format(800000)),
+    ('Mendoza', 'Incluye aéreos, alojamiento, traslados y excursiones', "$ {:,}".format(600000)),
+    ('Rio de Janeiro', 'Incluye aéreos y alojamiento', "$ {:,}".format(500000)),
+    ('Punta del Este', 'Incluye aéreos y alojamiento', "$ {:,}".format(1000000))]
+    cursor.executemany("INSERT INTO paquetes (Nombre_paq, Descripcion, Precio) VALUES (?, ?, ?)", Lista_paquetes)
+    conexion.commit()
+    print("Datos insertados y confirmados.")
+
+#4. Consultar y mostrar todos los registros
+    print("\n---Paquetes---")
+    cursor.execute("SELECT Nombre_paq, Descripcion, Precio FROM paquetes")
+    registros= cursor.fetchall()
+    for fila in registros:
+       print(f"Nombre_paq: {fila[0]}, Descripcion: {fila[1]}, Precio: {fila[2]}")
+    print("Total de viajes: ", len(Lista_paquetes))
+
+except sqlite3.Error as e:
+    print(f"Ocurrió un error con SQLite: {e}")
+    
+#5. Cerrar la conexión
 finally:
     if conexion:
         conexion.close()
-
-class Paquetes: 
-    def __init__(self,paquete, descripcion, precio):
-        self.paquete= paquete
-        self.descripcion= descripcion
-        self.precio= "${:,}".format(precio)
-        
-paquete1= Paquetes("Ushuaia + Calafate", "Alojamiento, aéreos, excursiones y traslados", 1000000)
-paquete2= Paquetes("Salta", "Alojamiento, aéreos, excursiones y traslados", 500000)
-paquete3= Paquetes("Mendoza", "Alojamiento, aéreos, excursiones y traslados", 800000)
-paquete4= Paquetes("Rio de Janeiro", "Alojamiento y aéreos", 500000)
-paquete5= Paquetes("Punta del Este", "Alojamiento y aéreos", 1000000)
-
-conexion= sqlite3.connect("Base de datos pax.sql")
-cursor= conexion.cursor()
-
-#Recorremos la lista de paquetes:
-Lista_paquetes= [paquete1, paquete2, paquete3, paquete4, paquete5]
-for paquetes in Lista_paquetes:
-    cursor.execute("INSERT INTO Paquetes (Paquete, Descripcion, Precio) VALUES (?, ?, ?)",
-    (paquetes.paquete, paquetes.descripcion, paquetes.precio))
-    
-cursor.execute("SELECT * FROM Paquetes")
-lineas= cursor.fetchall()
-
-for linea in  lineas:
-    print(linea)
+        print("\nConexión a la base de datos cerrada.")
