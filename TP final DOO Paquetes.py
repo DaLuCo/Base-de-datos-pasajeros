@@ -2,7 +2,7 @@ import sqlite3
 #1. Conexión a la base de datos
 try:
     conexion= sqlite3.connect('pasajeros.sql')
-    cursor = conexion.cursor()
+    cursor= conexion.cursor()
     print("Conexión a la base de datos establecida.")
         
 #2. Creamos una tabla
@@ -15,12 +15,12 @@ try:
 
 #3. Insertar datos
     class Paquetes:
-        def __init__(self, ID, nombre_paq, descripcion, precio):
+        def __init__(self, ID, nombre_paq, descripcion, precio, cant_ventas):
             self.ID= ID
             self.nombre_paq= nombre_paq
             self.descripcion= descripcion
             self.precio= precio
-            self.cant_ventas= int(input("Ingrese la cantidad de paquetes vendidos: "))
+            self.cant_ventas= cant_ventas
             print(self.ID, "|", self.nombre_paq, "|", self.descripcion, "|", "$ {:,}".format(self.precio), "|", self.cant_ventas)
             
                     
@@ -45,12 +45,12 @@ try:
         print("Paquete 6: ", "$ {:,}".format(venta6))
         print("Total ventas: ", "$ {:,}".format(ventas))
         
-    paquete1= Paquetes(1,'Ushuaia + Calafate', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 1000000)
-    paquete2= Paquetes(2, 'Salta', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 800000)
-    paquete3= Paquetes(3, 'Mendoza', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 600000)
-    paquete4= Paquetes(4, 'Rio de Janeiro', 'Incluye: Aéreos y alojamiento', 500000)
-    paquete5= Paquetes(5, 'Punta del Este', 'Incluye: Aéreos y alojamiento', 1000000)
-    paquete6= Paquetes(6, 'Lima + Cuzco', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 2000000)
+    paquete1= Paquetes(1,'Ushuaia + Calafate', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 1000000, 5)
+    paquete2= Paquetes(2, 'Salta', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 800000, 10)
+    paquete3= Paquetes(3, 'Mendoza', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 600000, 5)
+    paquete4= Paquetes(4, 'Rio de Janeiro', 'Incluye: Aéreos y alojamiento', 500000, 6)
+    paquete5= Paquetes(5, 'Punta del Este', 'Incluye: Aéreos y alojamiento', 1000000,2 )
+    paquete6= Paquetes(6, 'Lima + Cuzco', 'Incluye: Aéreos, alojamiento, traslados y excursiones', 2000000, 2)
     total_viajes() 
     total_ventas()
     
