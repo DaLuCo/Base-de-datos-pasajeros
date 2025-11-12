@@ -1,11 +1,12 @@
 import sqlite3
+
 #1. Conexión a la base de datos
 try:
     conexion= sqlite3.connect('pasajeros.sql')
     cursor= conexion.cursor()
     print("Conexión a la base de datos establecida.")
         
-#2. Creamos una tabla
+#2. Creamos la tabla paquetes
     cursor.execute('''CREATE TABLE IF NOT EXISTS paquetes
                   (ID INTEGER PRIMARY KEY AUTOINCREMENT,
                    Nombre_paq TEXT NOT NULL,
@@ -21,8 +22,7 @@ try:
             self.descripcion= descripcion
             self.precio= precio
             self.cant_ventas= cant_ventas
-            print(self.ID, "|", self.nombre_paq, "|", self.descripcion, "|", "$ {:,}".format(self.precio), "|", self.cant_ventas)
-            
+            print(self.ID, "|", self.nombre_paq, "|", self.descripcion, "|", "$ {:,}".format(self.precio), "|", self.cant_ventas)            
                     
     def total_viajes():
         viajes= paquete1.cant_ventas + paquete2.cant_ventas + paquete3.cant_ventas + paquete4. cant_ventas + paquete5.cant_ventas + paquete6.cant_ventas
