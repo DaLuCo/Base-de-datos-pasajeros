@@ -32,7 +32,7 @@ def alta():
     try:
         DNI= int(input("Ingrese el DNI del pasajero: "))
     except ValueError:
-        print("Debe ingresar un múmero de hasta 8 cifras.")
+        print("Debe ingresar un número de hasta 8 cifras.")
         return
     nombre= input("Ingrese nombre y apellido del pasajero: ")
     fecha_nac= input("Ingrese fecha de nacimiento del pasajero: ")
@@ -77,7 +77,7 @@ def lista():
         print(f"DNI: {pax['DNI']} | Nombre: {pax['nombre']} | Fecha de nacimiento: {pax['fecha_nac']} | Telefono: {pax['telefono']} | Mail: {pax['mail']} | Paquete: {pax['paquete']}")
     print("---------------------------\n")
 
-#5. Modificación de datos    
+#5. Modificación de datos
 def modificar_telefono():
     lista()
     pax_id= input("Ingrese DNI del pasajero a modificar: ")
@@ -132,7 +132,7 @@ def modificar_mail():
             
 #6. Baja de pasajeros
 def baja():
-    self.lista()
+    lista()
     pax_id = input("Ingrese el DNI del pasajero a eliminar: ")
     conexion= conectar()
     cursor= conexion.cursor()
@@ -164,9 +164,9 @@ class Pasajero:
         
             opcion= input("Seleccione una opción: ")
             if opcion == '1':
-                self. alta()
+                alta()
             elif opcion == '2':
-                self.lista()
+                lista()
             elif opcion == '3':
                 while True:
                     print("a. Modificar teléfono")
@@ -174,17 +174,19 @@ class Pasajero:
                     
                     opcion2= input("Seleccione una opción: ")
                     if opcion2 == 'a':
-                        self.modificar_telefono()
+                        modificar_telefono()
                     elif opcion2 == 'b':
-                        self.modificar_mail()
+                        modificar_mail()
+                        break
+                    else:
+                        print("Opción incorrecta.")
             elif opcion == '4':
-                self.baja()
+                baja()
             elif opcion == '5':
                 print("¡Hasta luego!")
                 break
             else:
                 print("Opción incorrecta.")
-
 
 pasajero= Pasajero()
 pasajero.menu()

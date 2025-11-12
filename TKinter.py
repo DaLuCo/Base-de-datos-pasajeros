@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from Base-de-datos-pasajeros import Pasajero
 
 class Aplicacion(tk.Tk):
     def __init__(self):
@@ -91,7 +92,13 @@ class Aplicacion(tk.Tk):
         self.boton5.config(state= 'disabled')
         
     def guardar(self):
-        
+        pasajero= Pasajero(
+            self.dni.get(),
+            self.nombre.get(),
+            self.fecha.get(),
+            self.telefono.get(),
+            self.mail.get(),
+            self.paquete.get(),)
         self.deshabilitar()
 
     def tabla(self):
